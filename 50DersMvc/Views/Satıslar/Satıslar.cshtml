@@ -1,0 +1,95 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Satislar
+
+
+@using PagedList.Mvc
+@using PagedList
+@{
+    ViewBag.Title = "Satıslar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1" style="display:inline-block">Satış Yap</button>
+<div style="display:inline-block">
+    @using (Html.BeginForm("SatıslarAra", "Satıslar", FormMethod.Get))
+    {
+        <p>
+            Aranacak Ürün Adı : @Html.TextBox("p", null, new { @required = "required" })
+            <input type="submit" value="Ara" />
+        </p>
+    }
+</div>
+
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Satış Yap</h2>
+            </div>
+            @using (Html.BeginForm("YeniSatıs", "Satıslar", FormMethod.Post))
+            {
+            <div class="modal-body">
+                <label>
+                    Ürün Adı
+                </label>
+                <br />
+                @Html.DropDownListFor(v => v.tbl_Ürünler.ürünID, (List<SelectListItem>)ViewBag.veri, new { @class = "form-control" })
+                <br />
+                <label>
+                    Müşteri Adı Soyadı
+                </label>
+                <br />
+                @Html.DropDownListFor(v => v.tbl_Müsteriler.müsteriID, (List<SelectListItem>)ViewBag.veri1, new { @class = "form-control" })
+                <br />
+                <label>
+                    Adet
+                </label>
+                <br />
+                @Html.TextBoxFor(v => v.Adet, new { @class = "form-control", @required = "", type = "number" })
+                @Html.ValidationMessageFor(m => m.Adet, "", new { @style = "color:red" })
+                <br />
+                <label>
+                    Fiyat
+                </label>
+                <br />
+                @Html.TextBoxFor(m => m.Fiyat, new { @class = "form-control", @required = "", type = "number" })
+                @Html.ValidationMessageFor(m => m.Fiyat, "", new { @style = "color:red" })
+                <br />
+
+                <button type="submit" class="btn btn-info">Satış Yap</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Vazgeç</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<h2>Satılan Ürünler</h2>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+    <tr>
+        <th>Ürün Adı</th>
+        <th>Müşteri Adı Soyadı</th>
+        <th>Adet</th>
+        <th>Fiyat</th>
+    </tr>
+    <tbody>
+        @foreach (var item in ViewBag.SatıslarListesi)
+        {
+            <tr>
+                <td> @item.tbl_Ürünler.ürünAD</td>
+                <td> @item.tbl_Müsteriler.müsteriAD  @item.tbl_Müsteriler.müsteriSOYAD </td>
+                <td> @item.Adet</td>
+                <td> @item.Fiyat</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+@Html.PagedListPager((IPagedList)ViewBag.SatıslarListesi, sayfa => Url.Action("Satıslar", new { sayfa }))
+
+
+

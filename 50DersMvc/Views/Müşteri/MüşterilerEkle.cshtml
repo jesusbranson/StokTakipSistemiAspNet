@@ -1,0 +1,30 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Müsteriler
+@{
+    ViewBag.Title = "MüşterilerEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Müşteriler Ekle</h2>
+
+@using (Html.BeginForm("MüşterilerEkle", "Müşteri", FormMethod.Post))
+ {
+<div>
+    <label>Müşteri Adı</label>
+    @Html.TextBoxFor(m => m.müsteriAD, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.müsteriAD)
+    <br />
+    <label>Müşteri Soyadı</label>
+    @Html.TextBoxFor(m => m.müsteriSOYAD, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.müsteriSOYAD)
+
+
+</div>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info" style="margin-top:15px" id="btn1">Müşteri Ekle</button>
+    </div>
+    <script>
+        $('#btn1').click(function () { alert('Müşteri Ekleme İşlemi Başarılı') })
+    </script>
+
+ }

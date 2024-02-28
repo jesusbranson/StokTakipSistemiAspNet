@@ -1,0 +1,38 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Kategoriler
+@{
+    ViewBag.Title = "KategoriGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kategori Getir</h2>
+
+ @using (Html.BeginForm("Güncelle", "Kategori", FormMethod.Post))
+{
+    <div class="form-group">
+
+        @Html.LabelFor(m => m.kategoriID)
+        @Html.TextBoxFor(m => m.kategoriID, new { @class = "form-control", @readonly = "readonly", @style = "pointer-events: none; background-color: #f2f2f2; " })
+
+        @Html.LabelFor(m => m.kategoriAD)
+        @Html.TextBoxFor(m => m.kategoriAD, new { @class = "form-control" })
+
+    </div>
+    <div>
+        <button type="button" class="btn btn-warning" onclick="confirmAction()">Kategori Güncelle</button>
+    </div>
+
+
+    <script>
+    function confirmAction() {
+        var result = confirm("Kategori güncelleme işlemini gerçekleştirmek istediğinize emin misiniz?");
+        if (result) {
+            // Kullanıcı "OK" butonuna tıkladı
+            // Burada kategori güncelleme işlemini yapabilirsiniz
+            document.forms[0].submit(); // Formu gönder
+        } else {
+            // Kullanıcı "Cancel" butonuna tıkladı veya kutuyu kapattı
+            alert("İşlem iptal edildi!");
+        }
+    }
+    </script>
+}

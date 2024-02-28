@@ -1,0 +1,35 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Ürünler
+@{
+    ViewBag.Title = "GüncelleSayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GüncelleSayfası</h2>
+
+@using (Html.BeginForm("Güncelle", "Ürünler", FormMethod.Post))
+{
+<div class="form-group">
+
+    @Html.LabelFor(m => m.ürünID)
+    @Html.TextBoxFor(m => m.ürünID, new { @class = "form-control", @required = "required", type = "number", @readonly = "readonly", @style = "pointer-events: none; background-color: #f2f2f2; " })
+
+    @Html.LabelFor(m => m.ürünAD)
+    @Html.TextBoxFor(m => m.ürünAD, new { @class = "form-control" ,@required = ""})
+
+    @Html.LabelFor(m => m.ürünFİYAT)
+    @Html.TextBoxFor(m => m.ürünFİYAT, new { @class = "form-control", @required = "", type="number" })
+
+    @Html.LabelFor(m => m.Marka)
+    @Html.TextBoxFor(m => m.Marka, new { @class = "form-control", @required = "" })
+
+    @Html.LabelFor(m => m.Stok)
+    @Html.TextBoxFor(m => m.Stok, new { @class = "form-control", @required = "", type = "number" })
+
+    @Html.LabelFor(m => m.ürünKATEGORİ)
+    @Html.DropDownListFor(m => m.tbl_Kategoriler.kategoriID,(List<SelectListItem>)ViewBag.veri,new {@class = "form-control" })
+</div>
+
+    <div>
+        <button class="btn btn-warning">Kategori Güncelle</button>
+    </div>
+}

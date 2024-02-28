@@ -1,0 +1,50 @@
+﻿@using _50DersMvc.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<tbl_Kategoriler>
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="display:inline-block; margin-right: 20px;">
+    <a href="/Kategori/YeniKategori/" class="btn btn-primary">Yeni Kategori Ekle</a>
+</div>
+
+<div style="display:inline-block">
+@using (Html.BeginForm("KategorilerAra", "Kategori", FormMethod.Get))
+{
+    <p>
+        Aranacak Kategori Adı : @Html.TextBox("p", null, new {  @required = "required" })
+        <input type="submit" value="Ara" />
+    </p>
+}
+</div>
+
+<h2>Kategoriler</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Kategori ID</th>
+            <th>Kategori Adı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.kategoriID</td>
+                    <td>@item.kategoriAD</td>
+                    <td>@Html.ActionLink("Sil", "Sil", new { veri = item.kategoriID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstediğinize Eminmisiniz ?.')" })</td>
+
+                    @*sil actionunun aldığı parametre adı, buradan gönderilen parametre adıyla aynı olmalı*@
+                    <td><a href="@Url.Action("GüncelleSayfası", "Kategori", new { veri = item.kategoriID })" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Kategoriler", new { sayfa }))
+<h2>Not: Satılmış Olan Ürünlerin Dahil Olduğu Kategoriler Silinemez !!</h2>

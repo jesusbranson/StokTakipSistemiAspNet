@@ -1,0 +1,42 @@
+﻿@using _50DersMvc.Models.Entity
+
+@model List<tbl_Satislar>
+@{
+    ViewBag.Title = "SatıslarAra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Satıslar Ara</h2>
+
+<div>
+    @using (Html.BeginForm("SatıslarAra", "Satıslar", FormMethod.Get))
+    {
+        <p>
+            Aranacak Ürün Adı  @Html.TextBox("p", null, new { @class = "form-control", @required = "required" })
+            <br />
+            <input type="submit" value="Ara" />
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Müşteri Adı Soyadı</th>
+                    <th>Adet</th>
+                    <th>Fiyat</th>
+                </tr>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.tbl_Ürünler.ürünAD</td>
+                            <td>@item.tbl_Müsteriler.müsteriAD  @item.tbl_Müsteriler.müsteriSOYAD</td>
+                            <td>@item.Adet</td>
+                            <td>@item.Fiyat</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

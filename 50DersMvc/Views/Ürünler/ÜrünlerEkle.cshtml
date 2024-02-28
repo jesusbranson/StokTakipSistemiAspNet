@@ -1,0 +1,28 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Ürünler
+@{
+    ViewBag.Title = "ÜrünlerEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ürün Ekle</h2>
+
+<form class="form-group" method="post">
+    <div>
+        <label>Ürün Adı</label>
+        <input type="text" class="form-control" name="ürünAD" required=""  />
+        <label>Ürün Marka</label>
+        <input type="text" class="form-control" name="Marka" required="" />
+        <label>Ürün Kategori</label>
+        @Html.DropDownListFor(v => v.tbl_Kategoriler.kategoriID, (List<SelectListItem>)ViewBag.veri, new { @class = "form-control" })
+        <label>Ürün Fiyat</label>
+        <input type="number" class="form-control" name="ürünFİYAT" required=""   />
+        <label>Ürün Stok</label>
+        <input type="number" class="form-control" name="Stok" required=""  />
+    </div>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info" style="margin-top:15px">Ürün Ekle</button>
+    </div>
+
+</form>
+

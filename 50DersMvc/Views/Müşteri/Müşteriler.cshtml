@@ -1,0 +1,59 @@
+﻿@using _50DersMvc.Models.Entity
+@using PagedList.Mvc
+@using PagedList
+
+@model PagedList.IPagedList<tbl_Müsteriler>
+@{
+    ViewBag.Title = "Müşteriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+    <div style="display:inline-block; margin-right:20px;">
+        <a href="/Müşteri/MüşterilerEkle/" class="btn btn-primary">Yeni Müşteri Ekle</a>
+    </div>
+
+<div style="display:inline-block">
+@using (Html.BeginForm("MüsteriAra", "Müşteri", FormMethod.Get))
+    {
+    <p>
+        Aranacak Müşteri Adı : @Html.TextBox("p", null, new {  @required = "required" })
+        <input type="submit" value="Ara" />
+    </p>
+    }
+</div>
+
+
+<h2>Müşteriler</h2>
+<div class="table-responsive">
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Müşteri ID</th>
+            <th>Müşteri Adı</th>
+            <th>Müşteri Soyadı</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+
+        <tbody>
+            @foreach (var Müsteri in Model)
+            {
+                <tr>
+                    <td> @Müsteri.müsteriID</td>
+                    <td> @Müsteri.müsteriAD</td>
+                    <td> @Müsteri.müsteriSOYAD</td>
+                    <td> @Html.ActionLink("Sil", "Sil", new { veri = Müsteri.müsteriID }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İstediğinize Eminmisiniz ?.')" })</td>
+                    <td> <a href="@Url.Action("GüncelleSayfa", "Müşteri", new { veri = Müsteri.müsteriID })" class="btn btn-success">Güncelle</a></td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Müşteriler", new { sayfa }))
+
+
+<h2>Not: Ürün Satın Almış Olan Müşteri Silinemez !!</h2>

@@ -1,0 +1,19 @@
+﻿@model _50DersMvc.Models.Entity.tbl_Kategoriler
+@{
+    ViewBag.Title = "YeniKategori";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("YeniKategori","Kategori",FormMethod.Post))
+
+ {
+    <div>
+        <label>Kategori Adı</label>
+        @Html.TextBoxFor(m => m.kategoriAD, new {@class = "form-control" })
+        @Html.ValidationMessageFor(m => m.kategoriAD)
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info" style="margin-top:15px">Kategori Ekle</button>
+    </div>
+
+ }
